@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>GitLab部署 | YuJianSheng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="安装一、拉取镜像1docker pull gitlab&#x2F;gitlab-ce  二、创建挂载目录1mkdir –p &#x2F;mnt&#x2F;gitlab&#x2F;&amp;#123;data,etc,log&amp;#125; &#x2F;&#x2F;(mnt为云机数据盘)  三、启动容器123456docker run -d -p 8090:80 -p 8443:443 -p 8222:22 --name gitlab \  --restart alwa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab部署">
+<meta property="og:url" content="https://yujiansheng.github.io/2021/07/14/Docker/index.html">
+<meta property="og:site_name" content="YuJianSheng">
+<meta property="og:description" content="安装一、拉取镜像1docker pull gitlab&#x2F;gitlab-ce  二、创建挂载目录1mkdir –p &#x2F;mnt&#x2F;gitlab&#x2F;&amp;#123;data,etc,log&amp;#125; &#x2F;&#x2F;(mnt为云机数据盘)  三、启动容器123456docker run -d -p 8090:80 -p 8443:443 -p 8222:22 --name gitlab \  --restart alwa">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-14T07:31:27.000Z">
+<meta property="article:modified_time" content="2021-07-14T12:12:37.119Z">
+<meta property="article:author" content="Yujs">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YuJianSheng" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YuJianSheng</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yujiansheng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Docker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/07/14/Docker/" class="article-date">
+  <time class="dt-published" datetime="2021-07-14T07:31:27.000Z" itemprop="datePublished">2021-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      GitLab部署
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="一、拉取镜像"><a href="#一、拉取镜像" class="headerlink" title="一、拉取镜像"></a>一、拉取镜像</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、创建挂载目录"><a href="#二、创建挂载目录" class="headerlink" title="二、创建挂载目录"></a>二、创建挂载目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir –p /mnt/gitlab/&#123;data,etc,log&#125; //(mnt为云机数据盘)</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、启动容器"><a href="#三、启动容器" class="headerlink" title="三、启动容器"></a>三、启动容器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8090:80 -p 8443:443 -p 8222:22 --name gitlab \  </span><br><span class="line">--restart always --privileged=true \</span><br><span class="line">-v /mnt/gitlab/etc:/etc/gitlab \</span><br><span class="line">-v /mnt/gitlab/log:/var/log/gitlab \</span><br><span class="line">-v /mnt/gitlab/data:/var/opt/gitlab \</span><br><span class="line">gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>端口说明<br>80和443是gitlab中nginx使用的，22端口是gitlab中ssh使用的</p>
+</blockquote>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="一、修改配置文件"><a href="#一、修改配置文件" class="headerlink" title="一、修改配置文件"></a>一、修改配置文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># vim /mnt/gitlab/etc/gitlab.rb</span><br><span class="line">gitlab_rails[&quot;gitlab_shell_ssh_port&quot;] = 8222</span><br><span class="line"></span><br><span class="line"># vim /opt/gitlab/data/gitlab-rails/etc/gitlab.yml</span><br><span class="line"> gitlab:</span><br><span class="line">    host: 118.31.186.125</span><br><span class="line">    port: 8090</span><br><span class="line">    https: false</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、备份配置及定时"><a href="#二、备份配置及定时" class="headerlink" title="二、备份配置及定时"></a>二、备份配置及定时</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># vim /mnt/gitlab/etc/gitlab.rb</span><br><span class="line">gitlab_rails[&#x27;manage_backup_path&#x27;] = true</span><br><span class="line">gitlab_rails[&#x27;backup_path&#x27;] = &quot;/var/opt/gitlab/backups&quot;</span><br><span class="line">gitlab_rails[&#x27;backup_archive_permissions&#x27;] = 0644</span><br><span class="line">gitlab_rails[&#x27;backup_keep_time&#x27;] = 2592000</span><br><span class="line"></span><br><span class="line"># crontab -e </span><br><span class="line">0 23 * * * docker exec -d gitlab /bin/bash gitlab-rake</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yujiansheng.github.io/2021/07/14/Docker/" data-id="ckr3g83zn0000ixqkd65u4a2e" data-title="GitLab部署" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/07/14/Docker_install/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Docker安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/07/14/Docker/">GitLab部署</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/14/Docker_install/">Docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/14/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Yujs<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
